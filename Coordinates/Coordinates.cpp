@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+#include <locale>
 using namespace std;
 int main()
 {
@@ -14,15 +15,17 @@ int main()
 
 Долгота : от 20 до 45 */
 
+	setlocale(LC_ALL, "Russian");
+
 	ifstream ifile("coordinates.txt", ios::in);
 	if (ifile.is_open()) 
 	{	
 		
-		
+		bool flag = false;
 		while (!ifile.eof())
 		{		
 			string line;
-			double lat, lon;
+			double lat, lon;			
 			getline(ifile, line);
 			//cout << line << endl;
 			stringstream ss(line);
@@ -37,9 +40,14 @@ int main()
 				{
 					cout << lat << ", " << lon << endl;
 					cout << endl;
+					flag = true;
 				}							
-			}			
-		}		
+			}	
+		}
+		if (flag == false)
+		{
+			cout << "Нет соответсвующих координат!" << endl;
+		}
 	}
 	
 
